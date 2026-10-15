@@ -1,0 +1,6 @@
+{
+  "name": "Khadija's Birthday Reflection",
+  "description": "An intimate, cinematic birthday reflection experience crafted for Khadija with smooth red and black art animations, deep questions, and keepsake response tracking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-violet: #9333ea;
+    --color-purple: #7e22ce;
+    --color-dark-purple: #3b0764;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #040207;
+    color: #f3f4f6;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+.font-cinzel {
+  font-family: 'Cinzel', serif;
+}
+
+.font-playfair {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Hide scrollbar universally while preserving smooth scrolling */
+html, body, #root, * {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE and Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, Opera */
+  width: 0px !important;
+  height: 0px !important;
+  background: transparent !important;
+}
+
+/* Smooth ambient pulse animations */
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.65;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.7;
+  }
+  80% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes flickerFlame {
+  0%, 100% {
+    transform: scale(1) rotate(-1deg);
+    filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.9)) drop-shadow(0 0 25px rgba(147, 51, 234, 0.6));
+  }
+  25% {
+    transform: scale(1.06, 0.96) rotate(1deg);
+    filter: drop-shadow(0 0 14px rgba(192, 132, 252, 1)) drop-shadow(0 0 30px rgba(168, 85, 247, 0.8));
+  }
+  50% {
+    transform: scale(0.96, 1.05) rotate(-2deg);
+    filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.8)) drop-shadow(0 0 20px rgba(126, 34, 206, 0.5));
+  }
+  75% {
+    transform: scale(1.03, 1.02) rotate(2deg);
+    filter: drop-shadow(0 0 16px rgba(216, 180, 254, 0.95)) drop-shadow(0 0 32px rgba(147, 51, 234, 0.7));
+  }
+}
+
+.animate-flame {
+  animation: flickerFlame 1.8s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.ambient-glow {
+  animation: pulseGlow 5s ease-in-out infinite;
+}
