@@ -43,7 +43,7 @@ export const StageQuestionnaire: React.FC<StageQuestionnaireProps> = ({
 
     onAnswerSelected(answerObj);
 
-    // Smooth auto-advance after small pause
+    // Fast, responsive advance
     if (!isTransitioning) {
       setIsTransitioning(true);
       setTimeout(() => {
@@ -53,7 +53,7 @@ export const StageQuestionnaire: React.FC<StageQuestionnaireProps> = ({
           onComplete();
         }
         setIsTransitioning(false);
-      }, 420);
+      }, 300);
     }
   };
 
@@ -80,7 +80,7 @@ export const StageQuestionnaire: React.FC<StageQuestionnaireProps> = ({
         <div className="flex items-center justify-between text-xs mb-2">
           <button
             onClick={handlePrev}
-            className="flex items-center gap-1 text-zinc-400 hover:text-purple-400 font-mono transition py-1 px-1.5 -ml-1 rounded active:scale-95"
+            className="flex items-center gap-1 text-zinc-400 hover:text-purple-400 font-mono transition py-1 px-1.5 -ml-1 rounded active:scale-95 cursor-pointer"
           >
             <ChevronLeft className="w-4 h-4 text-purple-400" />
             <span>{currentIndex === 0 ? 'Start' : 'Previous'}</span>
@@ -97,7 +97,7 @@ export const StageQuestionnaire: React.FC<StageQuestionnaireProps> = ({
           <button
             onClick={handleNext}
             disabled={!selectedAnswer && currentIndex === total - 1}
-            className={`flex items-center gap-1 text-xs font-mono transition py-1 px-1.5 -mr-1 rounded ${
+            className={`flex items-center gap-1 text-xs font-mono transition py-1 px-1.5 -mr-1 rounded cursor-pointer ${
               selectedAnswer ? 'text-zinc-400 hover:text-purple-400' : 'text-zinc-600'
             }`}
           >
@@ -106,33 +106,31 @@ export const StageQuestionnaire: React.FC<StageQuestionnaireProps> = ({
           </button>
         </div>
 
-        {/* Glowing Royal Purple Progress Bar */}
+        {/* Smooth, lightweight Progress Bar (CSS transition instead of heavy framer loop) */}
         <div className="w-full h-1.5 bg-zinc-900 rounded-full overflow-hidden p-[1px] border border-purple-950/60 shadow-inner">
-          <motion.div
-            className="h-full bg-gradient-to-r from-purple-800 via-purple-600 to-fuchsia-400 rounded-full"
-            initial={{ width: 0 }}
-            animate={{ width: `${progressPercent}%` }}
-            transition={{ duration: 0.4, ease: 'easeOut' }}
+          <div
+            className="h-full bg-gradient-to-r from-purple-800 via-purple-600 to-fuchsia-400 rounded-full transition-all duration-300 ease-out"
             style={{
-              boxShadow: '0 0 10px rgba(168, 85, 247, 0.7)',
+              width: `${progressPercent}%`,
+              boxShadow: '0 0 8px rgba(168, 85, 247, 0.6)',
             }}
           />
         </div>
       </div>
 
-      {/* Main Question & Options Container with Smooth Animated Transition */}
+      {/* Main Question & Options Container with Fast, Crisp Slide/Fade */}
       <div className="my-auto py-2">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentQ.id}
-            initial={{ opacity: 0, x: 24, filter: 'blur(4px)' }}
-            animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-            exit={{ opacity: 0, x: -24, filter: 'blur(4px)' }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col gap-5"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.22, ease: 'easeOut' }}
+            className="flex flex-col gap-4"
           >
             {/* Question Card */}
-            <div className="p-4 rounded-2xl bg-gradient-to-b from-zinc-950/90 via-black to-purple-950/25 border border-purple-900/35 shadow-[0_4px_25px_rgba(0,0,0,0.8)] relative overflow-hidden">
+            <div className="p-4 rounded-2xl bg-gradient-to-b from-zinc-950/90 via-black to-purple-950/25 border border-purple-900/35 shadow-[0_4px_20px_rgba(0,0,0,0.8)] relative overflow-hidden">
               <div className="absolute top-0 left-0 w-1 h-full bg-purple-500" />
               
               <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-purple-400/90 mb-1.5 block font-semibold">
@@ -144,28 +142,26 @@ export const StageQuestionnaire: React.FC<StageQuestionnaireProps> = ({
               </h3>
             </div>
 
-            {/* Options List */}
+            {/* Options List with Native CSS active state */}
             <div className="space-y-2.5">
               {currentQ.options.map((option) => {
                 const isSelected = selectedAnswer?.optionKey === option.key;
 
                 return (
-                  <motion.button
+                  <button
                     key={option.key}
                     onClick={() => handleSelectOption(option.key, option.text)}
-                    whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.98 }}
-                    className={`w-full text-left p-3.5 rounded-xl border transition-all duration-300 relative flex items-start gap-3 select-none ${
+                    className={`w-full text-left p-3.5 rounded-xl border transition-all duration-150 relative flex items-start gap-3 select-none active:scale-[0.99] cursor-pointer ${
                       isSelected
-                        ? 'bg-gradient-to-r from-purple-950 via-purple-900 to-black border-purple-500 shadow-[0_0_20px_rgba(168,85,247,0.4)] text-white'
-                        : 'bg-zinc-950/70 border-zinc-900 hover:border-purple-900/70 hover:bg-zinc-900/60 text-zinc-300'
+                        ? 'bg-gradient-to-r from-purple-950 via-purple-900 to-black border-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.35)] text-white'
+                        : 'bg-zinc-950/70 border-zinc-900 hover:border-purple-900/70 text-zinc-300'
                     }`}
                   >
                     {/* Key badge */}
                     <span
-                      className={`w-7 h-7 rounded-lg flex items-center justify-center font-mono font-bold text-xs shrink-0 transition-all ${
+                      className={`w-7 h-7 rounded-lg flex items-center justify-center font-mono font-bold text-xs shrink-0 transition-colors ${
                         isSelected
-                          ? 'bg-purple-600 text-white shadow-[0_0_10px_rgba(168,85,247,0.8)]'
+                          ? 'bg-purple-600 text-white shadow-[0_0_8px_rgba(168,85,247,0.7)]'
                           : 'bg-zinc-900 text-zinc-400 border border-zinc-800'
                       }`}
                     >
@@ -179,15 +175,11 @@ export const StageQuestionnaire: React.FC<StageQuestionnaireProps> = ({
 
                     {/* Check indicator if selected */}
                     {isSelected && (
-                      <motion.div
-                        initial={{ scale: 0, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        className="text-purple-400 shrink-0 self-center"
-                      >
+                      <div className="text-purple-400 shrink-0 self-center">
                         <CheckCircle2 className="w-4 h-4 fill-purple-600/30 text-purple-400" />
-                      </motion.div>
+                      </div>
                     )}
-                  </motion.button>
+                  </button>
                 );
               })}
             </div>

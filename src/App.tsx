@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'motion/react';
-import { Lock, Heart } from 'lucide-react';
+import { Heart } from 'lucide-react';
 import { PhoneGuard } from './components/PhoneGuard';
 import { AmbientBackground } from './components/AmbientBackground';
 import { StageGreeting } from './components/StageGreeting';
@@ -90,24 +90,12 @@ export default function App() {
         {/* Cinematic Ambient Atmosphere */}
         <AmbientBackground />
 
-        {/* Minimal Subtle Header with Discreet Admin Lock */}
-        <header className="relative z-20 w-full px-5 py-3 flex items-center justify-between text-xs border-b border-purple-950/40 bg-black/40 backdrop-blur-sm">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-purple-500 animate-ping" />
+        {/* Minimal Subtle Header */}
+        <header className="relative z-20 w-full px-5 py-3 flex items-center justify-center text-xs border-b border-purple-950/40 bg-black/40 backdrop-blur-sm">
+          <div>
             <span className="font-cinzel tracking-wider text-[11px] text-zinc-300 font-semibold">
               Khadija's Reflection
             </span>
-          </div>
-
-          <div className="flex items-center gap-3">
-            {/* Creator / Admin Login Button */}
-            <button
-              onClick={() => setIsAdminOpen(true)}
-              className="p-1.5 rounded-lg bg-zinc-950/80 border border-purple-950/70 hover:border-purple-600 text-zinc-400 hover:text-purple-300 transition shadow-[0_0_10px_rgba(168,85,247,0.2)]"
-              title="Creator Login & Answers Database"
-            >
-              <Lock className="w-3.5 h-3.5 text-purple-400" />
-            </button>
           </div>
         </header>
 
@@ -143,8 +131,6 @@ export default function App() {
               <StageOutro
                 key="outro"
                 answers={answers}
-                onOpenAdmin={() => setIsAdminOpen(true)}
-                onReviewAnswers={() => setStage('questions')}
               />
             )}
           </AnimatePresence>

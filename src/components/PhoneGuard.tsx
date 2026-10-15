@@ -71,14 +71,13 @@ export const PhoneGuard: React.FC<PhoneGuardProps> = ({ children }) => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] bg-purple-900/20 blur-[100px] pointer-events-none" />
 
       <div className="relative z-10 max-w-sm flex flex-col items-center">
-        {/* Animated Phone Icon */}
+        {/* Phone Icon */}
         <div className="relative mb-6">
           <div className="w-20 h-20 rounded-2xl bg-gradient-to-b from-purple-900/40 to-black border border-purple-700/50 flex items-center justify-center shadow-[0_0_30px_rgba(168,85,247,0.3)]">
-            <Smartphone className="w-10 h-10 text-purple-400 animate-bounce" />
+            <Smartphone className="w-10 h-10 text-purple-400" />
           </div>
-          <span className="absolute -top-1 -right-1 flex h-4 w-4">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-4 w-4 bg-purple-600"></span>
+          <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
+            <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-purple-500"></span>
           </span>
         </div>
 
